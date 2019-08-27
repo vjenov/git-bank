@@ -1,16 +1,19 @@
-package com.bitcamp.controllers;
+package com.bank.web.controllers;
 import java.util.Random;
 import javax.swing.JOptionPane;
-import com.bitcamp.domains.CustomerBean;
-import com.bitcamp.domains.AdminBean;
-import com.bitcamp.serviceimples.MemberServiceImpl;
-import com.bitcamp.services.MemberService;
+
+import com.bank.web.domains.EmployeeBean;
+import com.bank.web.domains.MemberBean;
+import com.bank.web.domains.CustomerBean;
+import com.bank.web.serviceimples.MemberServiceImpl;
+import com.bank.web.services.MemberService;
 public class MemberController {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Random ran = new Random();
 		CustomerBean custom = null;
+		MemberBean member = null;
 		MemberService service = new MemberServiceImpl();
 		String msg = "";
 		String[] arr = {};
@@ -25,19 +28,17 @@ public class MemberController {
 					temp = JOptionPane.showInputDialog("아이디, 비밀번호, 이름을 입력하세요");
 					System.out.println("****" + temp);
 					arr = temp.split(",");
-					custom = new CustomerBean();
-					custom.setId(arr[0]);
-					custom.setPw(arr[1]);
-					custom.setName(arr[2]);
-					custom.setSsn(String.valueOf(ran.nextInt(4))+String.valueOf(ran.nextInt(4)));
+					member = new MemberBean();
+					member.setId(arr[0]);
+					member.setPw(arr[1]);
+					member.setName(arr[2]);
 					break;
 				case "2" :
 					JOptionPane.showMessageDialog(null, service.findAllCustomers());
 					break;
 				case "3" :
-					String searchName = JOptionPane.showInputDialog("이름입력");
-					service.findByName(searchName);
-					JOptionPane.showMessageDialog(null, custom);
+					String searchWho = JOptionPane.showInputDialog("이름입력 혹은 아이디입력");
+					JOptionPane.showMessageDialog(null, member);
 					break;
 				case "4" :
 					String findId = JOptionPane.showInputDialog("아이디입력");
@@ -72,8 +73,17 @@ public class MemberController {
 					JOptionPane.showMessageDialog(null, msg);
 					break;
 				case "8" :
+					temp = JOptionPane.showInputDialog("아이디,현재비번입력,신규비번입력");
+					arr = temp.split(",");
+					member = new MemberBean();
+					member.setId(arr[0]);
+					member.setPw(arr[1]+","+arr[2]);
 					break;
 				case "9" :
+					temp = JOptionPane.showInputDialog("아이디,비번입력");
+					arr = temp.split(",");
+					member.setId(arr[0]);
+					member.setPw(arr[1]);
 					break;
 					
 					
